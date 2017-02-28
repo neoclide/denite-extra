@@ -7,7 +7,7 @@ Some extra sources for [denite.nvim](https://github.com/Shougo/denite.nvim).
 * `session`: for manage vim session
 * `node`: for manage node modules
 * `project`: for manage local projects
-* `command`: for manage vim commands
+* `commands`: for manage vim commands
 
 ## Actions
 
@@ -31,7 +31,7 @@ Some extra sources for [denite.nvim](https://github.com/Shougo/denite.nvim).
 * `open` open denite file_rec of selected project
 * `tabopen` open selected project directory in new iTerm2 tab
 
-### command
+### commands
 
 * `execute` execute selected command
 * `edit` edit selected command
