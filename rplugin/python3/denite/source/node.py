@@ -159,6 +159,11 @@ class Kind(BaseKind):
                 self.vim.command('split %s' % item.path)
                 break
 
+    def action_find(self, context):
+        target = context['targets'][0]
+        name = target['source__name']
+        self.vim.command('Denite func:m:%s' % name)
+
     def action_delete(self, context):
         for target in context['targets']:
             c = util.input(self.vim, context, 'Delete module %s ?' % target['source__name'], 'y')
@@ -175,5 +180,3 @@ class Kind(BaseKind):
                             if contains not in line:
                                 f.write(line)
                         f.close()
-
-

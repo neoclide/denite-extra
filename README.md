@@ -10,6 +10,7 @@ Some extra sources for [denite.nvim](https://github.com/Shougo/denite.nvim).
 * `commands`: for manage vim commands
 * `location_list`: for manage vim location list
 * `quickfix`: for manage vim quickfix list
+* `func`: for javascript functions using [parsefunc](https://github.com/chemzqm/parsefunc)
 
 ## Actions
 
