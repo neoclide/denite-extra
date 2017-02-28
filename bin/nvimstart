@@ -1,0 +1,17 @@
+#!/usr/bin/env fish
+
+set session $argv[1]
+if test (count $argv) -eq 0
+	echo 'session name required'
+	exit 1
+end
+
+printf "tell application \"iTerm2\"
+	tell current window
+		tell current session
+			delay 0.2
+			write text \"clear\"
+			write text \"nvim -c 'SessionLoad $session'\"
+		end tell
+	end tell
+end tell" | osascript -
