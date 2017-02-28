@@ -8,6 +8,8 @@ Some extra sources for [denite.nvim](https://github.com/Shougo/denite.nvim).
 * `node`: for manage node modules
 * `project`: for manage local projects
 * `commands`: for manage vim commands
+* `location_list`: for manage vim location list
+* `quickfix`: for manage vim quickfix list
 
 ## Actions
 
