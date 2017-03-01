@@ -28,6 +28,7 @@ Some extra sources for [denite.nvim](https://github.com/Shougo/denite.nvim).
 * `browser` open module in default browser
 * `update` update selected module(s) to latest version
 * `delete` delete module directory and field from package.json
+* `find` run `Denite func` for selected module
 
 ### project
 
