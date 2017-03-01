@@ -1,0 +1,163 @@
+*denite-extra.txt*				Some extra sources for |denite|
+
+Version: 0.1
+Author:  Qiming Zhao <chemzqm at gmail.com>
+License: MIT license
+
+CONTENTS						*denite-extra-contents*
+
+Introduction		|denite-extra-introduction|
+Install			|denite-extra-install|
+Sources 		|denite-extra-sources|
+  session 			|denite-extra-session|
+  node 				|denite-extra-node|
+  project			|denite-extra-project|
+  commands			|denite-extra-commands|
+  location_list			|denite-extra-location_list|
+  quickfix			|denite-extra-quickfix|
+  func				|denite-extra-func|
+Changelog 			|denite-extra-changelog|
+Feedback 			|denite-feedback|
+
+==============================================================================
+INTRODUCTION					*denite-extra-introduction*
+
+Denite-extra is a vim/neovim plugin for user to easily manage sources
+including "session" "node" "project" "commands" "location_list" "quickfix"
+and javascript functions "func".
+
+==============================================================================
+INSTALL 					 	*denite-extra-install*
+
+Make sure you have "echo has('python3')" return 1 before useing |denite|.
+
+Take [vim-plug](https://github.com/junegunn/vim-plug) for example, add: >
+
+    Plug 'Shougo/denite.nvim'
+    Plug 'chemzqm/denite-extra'
+
+To your .vimrc and run "PlugInstall" after vim restarted.
+
+Run "UpdateRemotePlugins" command after denite.nvim installed.
+
+Note: |denite-extra| requires python >= 3.5.
+
+Note: tabopen action only support iTerm2, which is Mac only.
+
+==============================================================================
+SOURCES 					 	*denite-extra-sources*
+
+------------------------------------------------------------------------------
+SESSION 						*denite-extra-session*
+
+session 	Manage vim session files.
+		
+		Actions:
+
+		load 	load selected session, default action.
+
+		delete 	remove selected session(s)
+
+------------------------------------------------------------------------------
+NODE 							*denite-extra-node*
+
+node 		Manage node_modules
+		
+		Actions:
+
+		open 	open denite file_rec of selected module, default
+		action.
+
+		tabopen open selected module directory in new iTerm2 tab
+
+		help 	open Readme.md file of selected module
+
+		preview open package.json in preview window
+
+		browser open module in default browser
+
+		update 	update selected module(s) to latest version
+
+		delete 	delete module directory and field from package.json
+
+		find run Denite func for selected module
+
+------------------------------------------------------------------------------
+PROJECT 						*denite-extra-project*
+
+project 	Manage your projects
+		
+		Actions:
+
+		open 	open denite file_rec of selected project
+
+		tabopen open selected project directory in new iTerm2 tab
+
+------------------------------------------------------------------------------
+COMMANDS 						*denite-extra-commands*
+
+commands 	Manage your vim commands in json file.
+		
+		Actions:
+
+		execute execute selected command
+
+		edit 	edit selected command
+
+------------------------------------------------------------------------------
+LOCATIONLIST 					*denite-extra-location_list*
+
+location_list 	Manage vim's location_list
+		
+		Actions:
+
+		Same as file_rec.
+
+------------------------------------------------------------------------------
+QUICKFIX 						*denite-extra-quickfix*
+
+quickfix 	Manage vim's quickfix list
+		
+		Actions:
+
+		Same as file_rec.
+
+------------------------------------------------------------------------------
+FUNC 							*denite-extra-func*
+
+func 	 	Manage javascript's functions.
+
+		Arguments:
+
+		args[0] is the type of functions:
+
+		"t" 	for current module
+		"r" 	for related files of current js file
+		"e" 	for external module of current js file
+		"m" 	for search functions in modules
+
+		if args[0] is empty, search functions for current buffer
+
+		arg[1] could be used for module name, if specified, search
+		function inside that module only, if empty, search all
+		modules.
+
+		Actions:
+
+		Same as file_rec.
+
+==============================================================================
+CHANGELOG 					 	*denite-extra-changelog*
+
+0.1     Feb 24, 2017
+
+	- works
+
+==============================================================================
+FEEDBACK 					 	*denite-extra-feedback*
+
+|denite-extra| is open sourced at https://github.com/chemzqm/denite-extra.
+feel free to open a issue when you get any problem.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:fen:
