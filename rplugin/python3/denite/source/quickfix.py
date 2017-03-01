@@ -27,7 +27,7 @@ class Source(Base):
         word = self.vim.eval('get(g:,"grep_word", "")')
         if word:
             pattern = re.escape(word)
-        self.vim.command(r'syntax match deniteSource_QuickfixWord /' +pattern+ '/')
+            self.vim.command(r'syntax match deniteSource_QuickfixWord /' +pattern+ '/')
 
     def highlight(self):
         self.vim.command('highlight default link deniteSource_QuickfixWord Search')
