@@ -53,9 +53,8 @@ class Source(Base):
                         'source__args': obj['args'],
                         'source__config': context['__config'],
                         })
-                fp.close()
             except json.JSONDecodeError:
-                fp.close()
+                util.error(self.vim, 'Decode error for %s' % context['__config'])
 
         candidates = sorted(candidates, key=itemgetter('source__command'))
         return candidates

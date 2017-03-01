@@ -81,9 +81,8 @@ class Source(Base):
                 if devDeps:
                     items += [{'name': x, 'dev': True, 'alias': browser.get(x, '')}
                               for x in devDeps]
-                fp.close()
             except json.JSONDecodeError:
-                fp.close()
+                util.error(self.vim, 'Decode error for %s' % package)
                 return []
 
         candidates = []
@@ -107,9 +106,8 @@ class Source(Base):
                         'source__root': root,
                         'source__name': item['name'],
                         })
-                    fp.close()
                 except json.JSONDecodeError:
-                    fp.close()
+                    util.error(self.vim, 'Decode error for %s' % jsonpath)
                     continue
 
         candidates = sorted(candidates, key=itemgetter('source__prod', 'source__mtime'),
