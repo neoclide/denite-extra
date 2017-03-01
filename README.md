@@ -10,6 +10,8 @@ _Related projects:_
 
 * [denite-git](https://github.com/chemzqm/denite-git) git log, status and changed
   lines source for denite.nvim
+* [chemzqm/ultisnips](https://github.com/neoclide/ultisnips) ultisnips fork with
+  denite.nvim support
 * [redismru.vim](https://github.com/chemzqm/redismru.vim) support redismru
   source of denite.nvim
 * [todoapp.vim](https://github.com/chemzqm/todoapp.vim) support todo source of
