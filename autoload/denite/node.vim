@@ -25,3 +25,22 @@ function! s:OnUpdate(job_id, status, event) dict
     echohl WarningMsg | echon 'Updated '.content.name.' to '.content.version | echohl None
   endif
 endfunction
+
+function! denite#node#install(args)
+  let cmd = 'npm install '.join(a:args, ' ')
+  let names = filter(copy(a:args), 'v:val !~ "^-" ')
+  execute 'belowright 5new'
+  set winfixheight
+  call termopen(cmd, {
+        \ 'on_exit': function('s:OnInstalled'),
+        \ 'source_names': join(names, ' '),
+        \})
+  call setbufvar('%', 'is_autorun', 1)
+  execute 'wincmd p'
+endfunction
+
+function! s:OnInstalled(job_id, status, event) dict
+  if a:status == 0
+    echohl WarningMsg | echon 'Successful installed '.self.source_names | echohl None
+  endif
+endfunction

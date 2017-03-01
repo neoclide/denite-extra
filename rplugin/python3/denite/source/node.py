@@ -7,11 +7,60 @@
 import os
 import json
 import re
+import shlex
 import subprocess
 from .base import Base
 from denite import util
 from ..kind.base import Base as BaseKind
 from operator import itemgetter
+
+BROWSER_MAP = {
+    'dom': 'dom-easy',
+    'cookie': 'component-cookie',
+    'menu': 'component-menu',
+    'ago': 'component-ago',
+    'align': 'component-align',
+    'drop': 'component-drop',
+    'dropdown': 'component-dropdown',
+    'file-picker': 'component-file-picker',
+    'upload': 'component-upload',
+    'request': 'request-component',
+    'spin': 'component-spin',
+    'spinner': 'component-spinner',
+    'notice': 'component-notice',
+    'overlay': 'overlay-component',
+    'uid': 'component-uid',
+    'query': 'component-query',
+    'querystring': 'component-querystring',
+    'delegate': 'component-delegate',
+    'classes': 'component-classes',
+    'closest': 'component-closest',
+    'emitter': 'component-emitter',
+    'events': 'component-events',
+    'event': 'component-event',
+    'indexof': 'component-indexof',
+    'sortable': 'sortable-component',
+    'matches-selector': 'component-matches-selector',
+    'radio': 'radio-component',
+    'switch': 'switch-component',
+    'validate': 'validate-component',
+    'invalid': 'invalid-component',
+    'delay': 'delay-component',
+    'reduce': 'reduce-component',
+    'model': 'model-component',
+    'reactive': 'reactive-lite',
+    'iscroll': 'iscroll-component',
+    'scrollfix': 'component-scrollfix',
+    'tap-event': 'component-tap-event',
+    'traverse': 'yields-traverse',
+    'tween': 'component-tween',
+    'tap': 'component-tap',
+    'more': 'more-mobile',
+    'pager': 'component-pager',
+    'raf': 'component-raf',
+    'tab': 'tab-component',
+    'style': 'style-component'
+}
 
 def _find_json(path):
     while True:
@@ -172,9 +221,33 @@ class Kind(BaseKind):
                     jsonpath = os.path.join(target['source__root'], 'package.json')
                     with open(jsonpath, "r") as fp:
                         lines = fp.readlines()
-                        fp.close()
                         f = open(jsonpath, "w")
                         for line in lines:
                             if contains not in line:
                                 f.write(line)
                         f.close()
+
+    def action_add(self, context):
+        s = util.input(self.vim, context, 'Install: ')
+        args = shlex.split(s)
+        newArgs = []
+        target = context['targets'][0]
+        jsonpath = os.path.join(target['source__root'], 'package.json')
+        with open(jsonpath, 'r') as fp:
+            obj = json.loads(fp.read())
+            if not 'browser' in obj:
+                obj['browser'] = {}
+            for arg in args:
+                if arg in BROWSER_MAP:
+                    newArgs.append(BROWSER_MAP[arg])
+                    obj['browser'][arg] = BROWSER_MAP[arg]
+                else:
+                    newArgs.append(arg)
+            f = open(jsonpath, 'w')
+            f.write(json.dumps(obj, indent=2))
+            f.close()
+
+        opt = next(filter(lambda x: x[0] == '-', newArgs), None)
+        if not opt:
+            newArgs.append('-S')
+        self.vim.call('denite#node#install', newArgs)
