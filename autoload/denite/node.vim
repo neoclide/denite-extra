@@ -22,25 +22,32 @@ function! s:OnUpdate(job_id, status, event) dict
   if a:status == 0
     execute 'silent! bd! '.self.buffer_nr
     let content = json_decode(join(readfile(self.source_path . '/package.json'), ''))
-    echohl WarningMsg | echon 'Updated '.content.name.' to '.content.version | echohl None
+    echohl MoreMsg | echon 'Updated '.content.name.' to '.content.version | echohl None
   endif
 endfunction
 
-function! denite#node#install(args)
+function! denite#node#install(args, cwd)
+  let old_cwd = getcwd()
+  execute 'lcd '.a:cwd
   let cmd = 'npm install '.join(a:args, ' ')
   let names = filter(copy(a:args), 'v:val !~ "^-" ')
-  execute 'belowright 5new'
-  set winfixheight
-  call termopen(cmd, {
-        \ 'on_exit': function('s:OnInstalled'),
-        \ 'source_names': join(names, ' '),
-        \})
-  call setbufvar('%', 'is_autorun', 1)
-  execute 'wincmd p'
+  if exists('*termopen')
+    execute 'belowright 5new'
+    set winfixheight
+    call termopen(cmd, {
+          \ 'on_exit': function('s:OnInstalled'),
+          \ 'source_names': join(names, ' '),
+          \})
+    call setbufvar('%', 'is_autorun', 1)
+    execute 'wincmd p'
+  else
+    execute '!'.cmd
+  endif
+  execute 'lcd ' . old_cwd
 endfunction
 
 function! s:OnInstalled(job_id, status, event) dict
   if a:status == 0
-    echohl WarningMsg | echon 'Successful installed '.self.source_names | echohl None
+    echohl MoreMsg | echon 'Successful installed '.self.source_names | echohl None
   endif
 endfunction

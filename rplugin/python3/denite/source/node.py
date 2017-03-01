@@ -171,6 +171,8 @@ class Kind(BaseKind):
         self.redraw_actions += ['delete'] #pylint: disable=E1101
         self.default_action = 'open'
         self.name = 'node'
+        self.isWin = self.vim.call('has', 'win32') or self.vim.call('has', 'win64')
+        self.isMac = self.vim.call('has', 'mac')
 
     def action_open(self, context):
         target = context['targets'][0]
@@ -178,6 +180,9 @@ class Kind(BaseKind):
 
     def action_tabopen(self, context):
         target = context['targets'][0]
+        if not self.isMac:
+            util.error(self.vim, context, 'Tabopen only supported on Mac')
+            return
         self.vim.call('denite#util#iterm_tabopen', target['action__path'])
 
     def action_update(self, context):
@@ -216,16 +221,23 @@ class Kind(BaseKind):
             c = util.input(self.vim, context, 'Delete module %s ?' % target['source__name'], 'y')
             contains = '"%s":' % target['source__name']
             if c == 'y':
-                self.vim.call('system', 'rmtrash %s' % target['action__path'])
-                if self.vim.eval('v:shell_error') == 0:
-                    jsonpath = os.path.join(target['source__root'], 'package.json')
-                    with open(jsonpath, "r") as fp:
-                        lines = fp.readlines()
-                        f = open(jsonpath, "w")
-                        for line in lines:
-                            if contains not in line:
-                                f.write(line)
-                        f.close()
+                if self.isWin:
+                    self.vim.call('delete', target['action__path'], 'rf')
+                else:
+                    if self.vim.call('executable', 'rmtrash'):
+                        cmd = 'rmtrash %s' % target['action__path']
+                    else:
+                        cmd = 'rm -rf %s' % target['action__path']
+                    self.vim.call('system', cmd)
+                    if self.vim.eval('v:shell_error') == 0:
+                        jsonpath = os.path.join(target['source__root'], 'package.json')
+                        with open(jsonpath, "r") as fp:
+                            lines = fp.readlines()
+                            f = open(jsonpath, "w")
+                            for line in lines:
+                                if contains not in line:
+                                    f.write(line)
+                            f.close()
 
     def action_add(self, context):
         s = util.input(self.vim, context, 'Install: ')
@@ -250,4 +262,4 @@ class Kind(BaseKind):
         opt = next(filter(lambda x: x[0] == '-', newArgs), None)
         if not opt:
             newArgs.append('-S')
-        self.vim.call('denite#node#install', newArgs)
+        self.vim.call('denite#node#install', newArgs, target['source__root'])

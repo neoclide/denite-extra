@@ -1,6 +1,42 @@
 # Denite-extra
 
+[![](http://img.shields.io/github/issues/chemzqm/denite-extra.svg)](https://github.com/chemzqm/denite-extra/issues)
+[![](http://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![](https://img.shields.io/badge/doc-%3Ah%20denite--extra.txt-red.svg)](doc/denite-extra.txt)
+
 Some extra sources for [denite.nvim](https://github.com/Shougo/denite.nvim).
+
+_Related projects:_
+
+* [denite-git](https://github.com/chemzqm/denite-git) git log, status and changed
+  lines source for denite.nvim
+* [redismru.vim](https://github.com/chemzqm/redismru.vim) support redismru
+  source of denite.nvim
+* [todoapp.vim](https://github.com/chemzqm/todoapp.vim) support todo source of
+  denite.nvim
+* [macnote.vim](https://github.com/chemzqm/macnote.vim) support note source of
+  denite.nvim
+
+## Install
+
+Take [vim-pug](https://github.com/junegunn/vim-plug) for example, add:
+
+    Plug 'Shougo/denite.nvim'
+    Plug 'chemzqm/denite-extra'
+
+To your `.vimrc` and run `PlugInstall` and `UpdateRemotePlugins` after
+restarted.
+
+**Note:** [denite.nvim](https://github.com/Shougo/denite.nvim) requires python3+
+so make sure `has('python3')` return true, and run:
+
+    pip3 install neovim
+
+before you install any neovim remote plugin.
+
+Run `:CheckHealth` if you get any problem.
+
+**Note:** `tabopen` action of this source is for `iTerm2` tab, which is Mac only.
 
 ## Sources
 
@@ -22,23 +58,28 @@ Some extra sources for [denite.nvim](https://github.com/Shougo/denite.nvim).
 ### node
 
 * `open` open denite file_rec of selected module
-* `tabopen` open selected module directory in new iTerm2 tab
+* `tabopen` open selected module directory in new iTerm2 tab (Mac only)
 * `help` open Readme.md file of selected module
 * `preview` open package.json in preview window
 * `browser` open module in default browser
 * `update` update selected module(s) to latest version
 * `delete` delete module directory and field from package.json
 * `find` run `Denite func` for selected module
+* `add` install new module(s)
 
 ### project
 
 * `open` open denite file_rec of selected project
-* `tabopen` open selected project directory in new iTerm2 tab
+* `tabopen` open selected project directory in new iTerm2 tab (Mac only)
 
 ### commands
 
 * `execute` execute selected command
 * `edit` edit selected command
+
+### location_list, quickfix and func
+
+All actions of `file` Kind.
 
 ## LICENSE
 
