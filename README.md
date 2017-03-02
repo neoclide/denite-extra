@@ -21,7 +21,7 @@ _Related projects:_
 
 ## Install
 
-Take [vim-pug](https://github.com/junegunn/vim-plug) for example, add:
+Take [vim-plug](https://github.com/junegunn/vim-plug) for example, add:
 
     Plug 'Shougo/denite.nvim'
     Plug 'chemzqm/denite-extra'
@@ -83,6 +83,11 @@ Run `:CheckHealth` if you get any problem.
 ### location_list, quickfix and func
 
 All actions of `file` Kind.
+
+### history
+
+* `execute` execute selected command/search
+* `feedkeys` feedkeys to command line
 
 ## LICENSE
 
