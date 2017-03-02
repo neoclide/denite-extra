@@ -67,4 +67,4 @@ class Kind(BaseKind):
 
     def action_tabopen(self, context):
         target = context['targets'][0]
-        self.vim.call('denite#util#iterm_tabopen', target['source__root'])
+        self.vim.call('denite#extra#iterm_tabopen', target['source__root'])

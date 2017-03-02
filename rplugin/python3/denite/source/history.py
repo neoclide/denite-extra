@@ -55,7 +55,7 @@ class Kind(BaseKind):
         target = context['targets'][0]
         command = target['source__word']
         util.clear_cmdline(self.vim)
-        self.vim.call('denite#util#feedkeys', command)
+        self.vim.call('denite#extra#feedkeys', command)
 
     def action_delete(self, context):
         for target in context['targets']:

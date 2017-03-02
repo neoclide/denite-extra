@@ -72,7 +72,7 @@ class Kind(BaseKind):
         args = target['source__args']
         if args:
             util.clear_cmdline(self.vim)
-            self.vim.call('denite#util#feedkeys', command)
+            self.vim.call('denite#extra#feedkeys', command)
         else:
             self.vim.call('denite#util#execute_command', command)
 

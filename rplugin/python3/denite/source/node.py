@@ -183,7 +183,7 @@ class Kind(BaseKind):
         if not self.isMac:
             util.error(self.vim, context, 'Tabopen only supported on Mac')
             return
-        self.vim.call('denite#util#iterm_tabopen', target['action__path'])
+        self.vim.call('denite#extra#iterm_tabopen', target['action__path'])
 
     def action_update(self, context):
         target = context['targets'][0]
