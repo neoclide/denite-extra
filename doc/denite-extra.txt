@@ -16,6 +16,7 @@ Sources 		|denite-extra-sources|
   location_list			|denite-extra-location_list|
   quickfix			|denite-extra-quickfix|
   func				|denite-extra-func|
+  history 			|denite-extra-history|
 Changelog 			|denite-extra-changelog|
 Feedback 			|denite-feedback|
 
@@ -145,6 +146,30 @@ func 	 	Manage javascript's functions.
 		Actions:
 
 		Same as file_rec.
+
+------------------------------------------------------------------------------
+HISTORY 						*denite-extra-history*
+
+history 	Manage vim's history
+
+		Arguments:
+
+		args[0] could be the type of history:
+
+		"cmd" 		for command line
+		"search"	for search
+		"expr" 		for expressions
+		"input" 	for input history
+		"debug" 	for debug history
+		
+		Actions:
+
+		execute 	default action.
+				execute selected search or command
+
+		feedkeys 	feedkeys to command line for modification
+				
+
 
 ==============================================================================
 CHANGELOG 					 	*denite-extra-changelog*

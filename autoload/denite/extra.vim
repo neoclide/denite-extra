@@ -2,9 +2,16 @@
 function! denite#extra#feedkeys(keys, ...)
   let pre = get(a:, 1, ':')
   function! Callback(key, pre, id)
-    call feedkeys(a:pre . a:key . ' ', 'n')
+    call feedkeys(a:pre . a:key . "", 'n')
   endfunction
   call timer_start(100, function('Callback', [a:keys, pre]))
+endfunction
+
+function! denite#extra#search(keys)
+  function! Callback(key, id)
+    call feedkeys('/' . a:key . "\<CR>", 'n')
+  endfunction
+  call timer_start(100, function('Callback', [a:keys]))
 endfunction
 
 function! denite#extra#iterm_tabopen(dir)

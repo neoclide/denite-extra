@@ -49,6 +49,7 @@ Run `:CheckHealth` if you get any problem.
 * `location_list`: for manage vim location list
 * `quickfix`: for manage vim quickfix list
 * `func`: for javascript functions using [parsefunc](https://github.com/chemzqm/parsefunc)
+* `history`: for manage vim history
 
 ## Actions
 

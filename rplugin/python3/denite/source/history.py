@@ -4,7 +4,6 @@
 # License: MIT license
 # ============================================================================
 # pylint: disable=E0401,C0411
-import os
 import re
 from .base import Base
 from denite import util
@@ -54,29 +53,30 @@ class Source(Base):
 class Kind(BaseKind):
     def __init__(self, vim):
         super().__init__(vim)
-        self.default_action = 'auto'
+        self.default_action = 'execute'
         self.name = 'history'
         self.persist_actions = ['delete']
         self.redraw_actions = ['delete']
-
-    def action_auto(self, context):
-        target = context['targets'][0]
-        if target['source__type'] == 'search':
-            self.action_search(context)
-        else:
-            self.action_feedkeys(context)
 
     def action_feedkeys(self, context):
         target = context['targets'][0]
         command = target['source__word']
         util.clear_cmdline(self.vim)
-        self.vim.call('denite#extra#feedkeys', command)
+        if target['source__type'] == 'search':
+            pre = '/'
+        else:
+            pre = ':'
+        self.vim.call('denite#extra#feedkeys', command, pre)
 
-    def action_search(self, context):
+    def action_execute(self, context):
         target = context['targets'][0]
-        util.clear_cmdline(self.vim)
         command = target['source__word']
-        self.vim.call('denite#extra#feedkeys', command, '/')
+        util.clear_cmdline(self.vim)
+        if target['source__type'] == 'search':
+            self.vim.call('denite#extra#search', command)
+        else:
+            self.vim.call('denite#util#execute_command', command)
+
 
     def action_delete(self, context):
         for target in context['targets']:
