@@ -22,7 +22,7 @@ class Source(Base):
     def gather_candidates(self, context):
         args = dict(enumerate(context['args']))
         t = args.get(0, 'all')
-        pattern = re.compile(r'\s*(\d+)\s+(.+)')
+        pattern = re.compile(r'>?\s*(\d+)\s+(.+)')
         type_pattern = re.compile(r'\s*#\s+(.+)\shistory')
 
         res = self.vim.call('execute', 'history %s' % t)
@@ -40,8 +40,10 @@ class Source(Base):
                 m = pattern.match(line)
                 if not m:
                     continue
+
+            pre = ':' if htype == 'cmd' else ''
             candidates.append({
-                'word': '%s' % m.group(2),
+                'word': '%s%s' % (pre, m.group(2)),
                 'source__nr': int(m.group(1)),
                 'source__type': htype,
                 'source__word': m.group(2),
