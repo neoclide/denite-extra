@@ -92,7 +92,7 @@ class Source(Base):
         self.kind = Kind(vim)
 
     def on_init(self, context):
-        cwd = self.vim.call('getcwd')
+        cwd = os.path.normpath(self.vim.call('getcwd'))
         context['__package'] = _find_json(cwd)
 
     def highlight(self):

@@ -39,7 +39,7 @@ class Source(Base):
         self.kind = 'file'
 
     def on_init(self, context):
-        cwd = self.vim.call('getcwd')
+        cwd = os.path.normpath(self.vim.call('getcwd'))
         context['__root'] = _find_root(cwd)
 
     def highlight(self):
