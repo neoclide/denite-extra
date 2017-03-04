@@ -41,7 +41,7 @@ class Source(Base):
                 if not m:
                     continue
 
-            pre = ':' if htype == 'cmd' else ''
+            pre = ':' if htype == 'cmd' else '/'
             candidates.append({
                 'word': '%s%s' % (pre, m.group(2)),
                 'source__nr': int(m.group(1)),
