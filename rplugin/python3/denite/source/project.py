@@ -18,6 +18,7 @@ class Source(Base):
 
         self.name = 'project'
         self.kind = Kind(vim)
+        self.sorters = []
 
     def on_init(self, context):
         folders = self.vim.vars.get('project_folders', [])
