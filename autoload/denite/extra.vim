@@ -1,10 +1,14 @@
 
 function! denite#extra#feedkeys(keys, ...)
-  let pre = get(a:, 1, ':')
-  function! Callback(key, pre, id)
-    call feedkeys(a:pre . a:key . "", 'n')
-  endfunction
-  call timer_start(100, function('Callback', [a:keys, pre]))
+  let s:keys = a:keys
+  if !exists('*timer_start')
+    echohl Error | echon 'timer_start requires for feedkeys to work' | echohl None
+  else
+    function! Callback(id)
+      call feedkeys(s:keys . "", 'n')
+    endfunction
+    call timer_start(100, function('Callback'))
+  endif
 endfunction
 
 function! denite#extra#search(keys)

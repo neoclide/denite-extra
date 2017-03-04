@@ -65,10 +65,12 @@ class Kind(BaseKind):
         command = target['source__word']
         util.clear_cmdline(self.vim)
         if target['source__type'] == 'search':
-            pre = '/'
+            keys = '/%s' % command
+        elif target['source__type'] == 'cmd':
+            keys = ':%s' % command
         else:
-            pre = ':'
-        self.vim.call('denite#extra#feedkeys', command, pre)
+            keys = command
+        self.vim.call('denite#extra#feedkeys', keys)
 
     def action_execute(self, context):
         target = context['targets'][0]
