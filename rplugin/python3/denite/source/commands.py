@@ -17,10 +17,14 @@ class Source(Base):
         super().__init__(vim)
 
         self.name = 'commands'
+        self.vars = {
+            "config": '~/.vim/command.json'
+        }
+
         self.kind = Kind(vim)
 
     def on_init(self, context):
-        context['__config'] = util.expand(os.path.join('~', '.vim/command.json'))
+        context['__config'] = util.expand(self.vars['config'])
 
     def highlight(self):
         self.vim.command('highlight link uniteSource__CommandSign Type')

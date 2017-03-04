@@ -98,7 +98,26 @@ project 	Manage your projects
 COMMANDS 						*denite-extra-commands*
 
 commands 	Manage your vim commands in json file.
-		
+
+		The commands is read from the file "~/.vim/commands.json" by
+		default, which contains commands description in json format, for
+		example: >
+
+		[{
+		  "command": "Mouse",
+		  "description": "Toggler mouse option",
+		  "args": 0
+		}]
+<
+		args could be 1 or 0 to indicate whether the command need
+		arguments.
+
+		Vars:
+
+		config 	for custom json file path, for example: >
+
+		call denite#custom#var('commands', 'config', '~/commands.json')
+<
 		Actions:
 
 		execute execute selected command
