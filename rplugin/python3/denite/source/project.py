@@ -9,6 +9,7 @@ from .base import Base
 from denite import util
 from ..kind.base import Base as BaseKind
 from operator import itemgetter
+from os.path import normpath
 
 class Source(Base):
 
@@ -20,7 +21,7 @@ class Source(Base):
 
     def on_init(self, context):
         folders = self.vim.vars.get('project_folders', [])
-        context['__folders'] = [util.expand(x) for x in folders]
+        context['__folders'] = [util.expand(normpath(x)) for x in folders]
 
     def highlight(self):
         self.vim.command('highlight link deniteSource__ProjectRoot Comment')

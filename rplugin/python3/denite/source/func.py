@@ -64,8 +64,8 @@ class Source(Base):
         args = dict(enumerate(context['args']))
         t = args.get(0, '')
         cmds = ['parsefunc']
-        relpath = os.path.relpath(self.vim.call('expand', '%:p'), root)
-        curpath = self.vim.call('expand', '%')
+        curpath = os.path.normpath(self.vim.call('expand', '%:p'))
+        relpath = os.path.relpath(curpath, root)
         if t == 't':
             cmds += ['-m', 'this']
         elif t == 'm':
