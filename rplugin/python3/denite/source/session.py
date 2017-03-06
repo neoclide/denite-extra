@@ -10,6 +10,24 @@ from .base import Base
 from denite import util
 from ..kind.base import Base as BaseKind
 
+def ago(now, seconds):
+    diff = now - seconds
+    if diff <= 0:
+        return 'just now'
+    if diff < 60:
+        return str(int(diff)) + ' seconds ago'
+    if diff/60 < 60:
+        return str(int(diff/60)) + ' minutes ago'
+    if diff/3.6e+3 < 24:
+        return str(int(diff/3.6e+3)) + ' hours ago'
+    if diff/8.64e+4 < 24:
+        return str(int(diff/8.64e+4)) + ' days ago'
+    if diff/6.048e+5 < 4.34812:
+        return str(int(diff/6.048e+5)) + ' weeks ago'
+    if diff/2.63e+6 < 12:
+        return str(int(diff/2.63e+6)) + ' months ago'
+    return str(int(diff/3.156e+7)) + 'years ago'
+
 class Source(Base):
 
     def __init__(self, vim):
@@ -44,7 +62,7 @@ class Source(Base):
                 mtime = item.stat().st_mtime
                 extname = os.path.splitext(item.name)[0]
                 candidates.append({
-                    'word': '%s (%s)' % (extname, util.ago(now, mtime)),
+                    'word': '%s (%s)' % (extname, ago(now, mtime)),
                     'action__path': item.path,
                     'source_mtime': mtime
                     })
