@@ -54,6 +54,7 @@ class Source(Base):
             'word': word,
             'action__path': context['__bufname'],
             'action__line': line,
+            'action__col': col,
             'action__buffer_nr': context['__bufnr']
             }
 
