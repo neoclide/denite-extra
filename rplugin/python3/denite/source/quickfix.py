@@ -5,8 +5,8 @@
 # ============================================================================
 # pylint: disable=E0401,C0411
 import re
-from .base import Base
-from ..kind.file import Kind as FileKind
+from denite.kind.file import Kind as FileKind
+from denite.source.base import Base
 
 
 class Source(Base):
@@ -19,7 +19,7 @@ class Source(Base):
         self.matchers = ['matcher_fuzzy']
         self.sorters = []
 
-        self.kind = Kind(vim)
+        self.kind = QuickfixKind(vim)
 
     def define_syntax(self):
         self.vim.command('syntax case ignore')
@@ -69,7 +69,9 @@ class Source(Base):
         return res
 
 
-class Kind(FileKind):
+
+
+class QuickfixKind(FileKind):
     """ Support the 'cc' quickfix action, storing where you are in the quickfix
     list, so that you can take advantage of :cnext/:cprev features.
     """
@@ -77,8 +79,22 @@ class Kind(FileKind):
     def __init__(self, vim):
         super().__init__(vim)
         self.default_action = 'cc'
-        self.name = 'commands'
-        self.persist_actions = []
+
+    def action_quickfix(self, context):
+        """ Use the default file 'kind', but override quickfix, so that it uses
+        'Denite quickfix' rather than 'copen'
+        """
+
+        qflist = [{
+            'filename': x['action__path'],
+            'lnum': x['action__line'],
+            'text': x['action__text'],
+        } for x in context['targets']
+                  if 'action__line' in x and 'action__text' in x]
+        self.vim.call('setqflist', qflist)
+        context['sources_queue'].append([
+            {'name': 'quickfix', 'args': ['-auto-resize', '-mode=normal']}
+        ])
 
     def action_cc(self, context):
         target = context['targets'][0]
