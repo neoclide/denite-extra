@@ -6,11 +6,10 @@ function! denite#node#update(cmd, path, cwd)
     execute 'belowright 5new'
     set winfixheight
     call termopen(a:cmd, {
-          \ 'on_exit': function('s:OnUpdate'),
+          \ 'on_exit': function('s:onExit'),
           \ 'source_path': a:path,
           \ 'buffer_nr': bufnr('%'),
           \})
-    call setbufvar('%', 'is_autorun', 1)
     execute 'wincmd p'
   else
     execute '!'.a:cmd
@@ -18,7 +17,7 @@ function! denite#node#update(cmd, path, cwd)
   execute 'lcd ' . old_cwd
 endfunction
 
-function! s:OnUpdate(job_id, status, event) dict
+function! s:onExit(job_id, status, event) dict
   if a:status == 0
     execute 'silent! bd! '.self.buffer_nr
     let content = json_decode(join(readfile(self.source_path . '/package.json'), ''))
@@ -38,7 +37,6 @@ function! denite#node#install(args, cwd)
           \ 'on_exit': function('s:OnInstalled'),
           \ 'source_names': join(names, ' '),
           \})
-    call setbufvar('%', 'is_autorun', 1)
     execute 'wincmd p'
   else
     execute '!'.cmd
@@ -48,6 +46,7 @@ endfunction
 
 function! s:OnInstalled(job_id, status, event) dict
   if a:status == 0
+    execute 'silent! bd! '.self.buffer_nr
     echohl MoreMsg | echon 'Successful installed '.self.source_names | echohl None
   endif
 endfunction
