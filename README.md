@@ -8,15 +8,15 @@ Some extra sources for [denite.nvim](https://github.com/Shougo/denite.nvim).
 
 _Related projects:_
 
-* [denite-git](https://github.com/chemzqm/denite-git) git log, status and changed
+* [denite-git](https://github.com/neoclide/denite-git) git log, status and changed
   lines source for denite.nvim
-* [chemzqm/ultisnips](https://github.com/neoclide/ultisnips) ultisnips fork with
+* [ultisnips](https://github.com/neoclide/ultisnips) ultisnips fork with
   denite.nvim support
-* [redismru.vim](https://github.com/chemzqm/redismru.vim) support redismru
+* [redismru.vim](https://github.com/neoclide/redismru.vim) support redismru
   source of denite.nvim
-* [todoapp.vim](https://github.com/chemzqm/todoapp.vim) support todo source of
+* [todoapp.vim](https://github.com/neoclide/todoapp.vim) support todo source of
   denite.nvim
-* [macnote.vim](https://github.com/chemzqm/macnote.vim) support note source of
+* [macnote.vim](https://github.com/neoclide/macnote.vim) support note source of
   denite.nvim
 
 ## Install
