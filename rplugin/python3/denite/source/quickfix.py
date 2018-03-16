@@ -87,14 +87,17 @@ class QuickfixKind(FileKind):
 
         qflist = [{
             'filename': x['action__path'],
+            'col': x['action__col'],
             'lnum': x['action__line'],
             'text': x['action__text'],
         } for x in context['targets']
                   if 'action__line' in x and 'action__text' in x]
         self.vim.call('setqflist', qflist)
         context['sources_queue'].append([
-            {'name': 'quickfix', 'args': ['-auto-resize', '-mode=normal']}
+            {'name': 'quickfix', 'args': []}
         ])
+        context['auto_resize'] = True
+        context['mode'] = 'normal'
 
     def action_cc(self, context):
         target = context['targets'][0]

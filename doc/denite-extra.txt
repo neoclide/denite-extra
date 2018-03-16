@@ -115,7 +115,9 @@ quickfix 	Manage vim's quickfix list
 		
 		Actions:
 
-		Same as file_rec.
+		[cc] Jump to selected location use `:cc` (default action)
+
+		[quickfix] Make selected targets as new quickfix list.
 
 ------------------------------------------------------------------------------
 FUNC 							*denite-extra-func*
