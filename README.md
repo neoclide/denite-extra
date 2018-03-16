@@ -43,7 +43,6 @@ Run `:CheckHealth` if you get any problem.
 ## Sources
 
 * `session`: for manage vim session
-* `node`: for manage node modules
 * `project`: for manage local projects
 * `commands`: for manage vim commands
 * `location_list`: for manage vim location list
@@ -57,18 +56,6 @@ Run `:CheckHealth` if you get any problem.
 
 * `load` default action
 * `delete` remove selected session
-
-### node
-
-* `open` open denite file_rec of selected module
-* `tabopen` open selected module directory in new iTerm2 tab (Mac only)
-* `help` open Readme.md file of selected module
-* `preview` open package.json in preview window
-* `browser` open module in default browser
-* `update` update selected module(s) to latest version
-* `delete` delete module directory and field from package.json
-* `find` run `Denite func` for selected module
-* `add` install new module(s)
 
 ### project
 

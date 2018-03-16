@@ -1,6 +1,6 @@
 *denite-extra.txt*				Some extra sources for |denite|
 
-Version: 0.1
+Version: 0.2
 Author:  Qiming Zhao <chemzqm at gmail.com>
 License: MIT license
 
@@ -10,7 +10,6 @@ Introduction		|denite-extra-introduction|
 Install			|denite-extra-install|
 Sources 		|denite-extra-sources|
   session 			|denite-extra-session|
-  node 				|denite-extra-node|
   project			|denite-extra-project|
   commands			|denite-extra-commands|
   location_list			|denite-extra-location_list|
@@ -24,7 +23,7 @@ Feedback 			|denite-feedback|
 INTRODUCTION					*denite-extra-introduction*
 
 Denite-extra is a vim/neovim plugin for user to easily manage sources
-including "session" "node" "project" "commands" "location_list" "quickfix"
+including "session" "project" "commands" "location_list" "quickfix"
 and javascript functions "func".
 
 ==============================================================================
@@ -58,30 +57,6 @@ session 	Manage vim session files.
 		load 	load selected session, default action.
 
 		delete 	remove selected session(s)
-
-------------------------------------------------------------------------------
-NODE 							*denite-extra-node*
-
-node 		Manage node_modules
-		
-		Actions:
-
-		open 	open denite file_rec of selected module, default
-		action.
-
-		tabopen open selected module directory in new iTerm2 tab
-
-		help 	open Readme.md file of selected module
-
-		preview open package.json in preview window
-
-		browser open module in default browser
-
-		update 	update selected module(s) to latest version
-
-		delete 	delete module directory and field from package.json
-
-		find run Denite func for selected module
 
 ------------------------------------------------------------------------------
 PROJECT 						*denite-extra-project*
@@ -192,6 +167,11 @@ history 	Manage vim's history
 
 ==============================================================================
 CHANGELOG 					 	*denite-extra-changelog*
+
+0.2 	Mar 16, 2018
+
+	- remove node source, use https://github.com/neoclide/npm.nvim
+	  instead.
 
 0.1     Feb 24, 2017
 
