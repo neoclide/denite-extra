@@ -47,7 +47,6 @@ Run `:CheckHealth` if you get any problem.
 * `commands`: for manage vim commands
 * `location_list`: for manage vim location list
 * `quickfix`: for manage vim quickfix list
-* `func`: for javascript functions using [parsefunc](https://github.com/chemzqm/parsefunc)
 * `history`: for manage vim history
 
 ## Actions
@@ -67,9 +66,14 @@ Run `:CheckHealth` if you get any problem.
 * `execute` execute selected command
 * `edit` edit selected command
 
-### location_list, quickfix and func
+### location_list
 
-All actions of `file` Kind.
+Actions of `file` kind
+
+### quickfix
+
+* `cc` run `:cc` command with selected target
+* `quickfix` create new quickfix list with selected targets
 
 ### history
 

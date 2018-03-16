@@ -1,6 +1,6 @@
 *denite-extra.txt*				Some extra sources for |denite|
 
-Version: 0.2
+Version: 0.3
 Author:  Qiming Zhao <chemzqm at gmail.com>
 License: MIT license
 
@@ -14,7 +14,6 @@ Sources 		|denite-extra-sources|
   commands			|denite-extra-commands|
   location_list			|denite-extra-location_list|
   quickfix			|denite-extra-quickfix|
-  func				|denite-extra-func|
   history 			|denite-extra-history|
 Changelog 			|denite-extra-changelog|
 Feedback 			|denite-feedback|
@@ -24,7 +23,6 @@ INTRODUCTION					*denite-extra-introduction*
 
 Denite-extra is a vim/neovim plugin for user to easily manage sources
 including "session" "project" "commands" "location_list" "quickfix"
-and javascript functions "func".
 
 ==============================================================================
 INSTALL 					 	*denite-extra-install*
@@ -120,30 +118,6 @@ quickfix 	Manage vim's quickfix list
 		[quickfix] Make selected targets as new quickfix list.
 
 ------------------------------------------------------------------------------
-FUNC 							*denite-extra-func*
-
-func 	 	Manage javascript's functions.
-
-		Arguments:
-
-		args[0] is the type of functions:
-
-		"t" 	for current module
-		"r" 	for related files of current js file
-		"e" 	for external module of current js file
-		"m" 	for search functions in modules
-
-		if args[0] is empty, search functions for current buffer
-
-		arg[1] could be used for module name, if specified, search
-		function inside that module only, if empty, search all
-		modules.
-
-		Actions:
-
-		Same as file_rec.
-
-------------------------------------------------------------------------------
 HISTORY 						*denite-extra-history*
 
 history 	Manage vim's history
@@ -169,6 +143,11 @@ history 	Manage vim's history
 
 ==============================================================================
 CHANGELOG 					 	*denite-extra-changelog*
+
+0.3 	Mar 16, 2018
+
+	- remove func source, use https://github.com/neoclide/npm.nvim
+	  instead.
 
 0.2 	Mar 16, 2018
 
