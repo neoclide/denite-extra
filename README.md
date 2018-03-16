@@ -1,6 +1,6 @@
 # Denite-extra
 
-[![](http://img.shields.io/github/issues/chemzqm/denite-extra.svg)](https://github.com/chemzqm/denite-extra/issues)
+[![](http://img.shields.io/github/issues/neoclide/denite-extra.svg)](https://github.com/chemzqm/denite-extra/issues)
 [![](http://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![](https://img.shields.io/badge/doc-%3Ah%20denite--extra.txt-red.svg)](doc/denite-extra.txt)
 
