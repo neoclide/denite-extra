@@ -33,6 +33,21 @@ function! denite#extra#iterm_tabopen(dir)
     \ 'end tell')
 endfunction
 
+function! denite#extra#iterm_tabrun(dir, cmd)
+  call s:osascript(
+    \ 'tell application "iTerm2"',
+    \   'tell current window',
+    \     'create tab with default profile',
+    \     'tell current session',
+    \       'delay 0.1',
+    \       'write text "cd '.s:escape(a:dir).'"',
+    \       'write text "clear"',
+    \       'write text "'.a:cmd.'"',
+    \     'end tell',
+    \   'end tell',
+    \ 'end tell')
+endfunction
+
 function! s:osascript(...) abort
   let args = join(map(copy(a:000), '" -e ".shellescape(v:val)'), '')
   let output = system('osascript'. args)
