@@ -56,6 +56,10 @@ session 	Manage vim session files.
 
 		delete 	remove selected session(s)
 
+		Note: use `g:denite_source_session_path' to change location of
+		session files, the default is `~/.vim/sessions`
+`
+
 ------------------------------------------------------------------------------
 PROJECT 						*denite-extra-project*
 

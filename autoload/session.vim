@@ -55,10 +55,17 @@ function! s:get_session_path(filename)
 
   if filename !~ '^\%(/\|\a\+:/\)'
     " Relative path.
-    let filename = g:unite_source_session_path . '/' . filename
+    let filename = get(g:, 'denite_source_session_path', s:home().'/session') . '/' . filename
   endif
 
   return filename
+endfunction
+
+function! s:home()
+  if s:is_win
+    return $VIM."/vimfiles"
+  endif
+  return $HOME."/.vim"
 endfunction
 
 let &cpo = s:save_cpo
