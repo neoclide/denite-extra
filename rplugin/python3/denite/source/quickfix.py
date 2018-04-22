@@ -7,7 +7,7 @@
 import re
 from denite.kind.file import Kind as FileKind
 from denite.source.base import Base
-
+from os.path import relpath
 
 class Source(Base):
 
@@ -38,14 +38,17 @@ class Source(Base):
         self.vim.command('highlight default link deniteSource_QuickfixName Directory')
         self.vim.command('highlight default link deniteSource_QuickfixPosition LineNr')
 
+    def on_init(self, context):
+        context['__root'] = self.vim.call('getcwd')
 
     def convert(self, val, index, context):
+        root = context['__root']
         bufnr = val['bufnr']
         line = val['lnum'] if bufnr != 0 else 0
         col = val['col'] if bufnr != 0 else 0
         fname = "" if bufnr == 0 else self.vim.eval('bufname(' + str(bufnr) + ')')
         word = '{fname} |{location}| {text}'.format(
-            fname=fname,
+            fname=relpath(fname, root),
             location='' if line == 0 and col == 0 else '%d col %d' % (line, col),
             text=val['text'])
 
