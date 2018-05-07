@@ -78,7 +78,7 @@ class Kind(BaseKind):
             util.clear_cmdline(self.vim)
             self.vim.call('denite#extra#feedkeys', ':%s' % command)
         else:
-            self.vim.call('denite#util#execute_command', command)
+            self.vim.call('denite#util#execute_command', command, False)
 
     def action_edit(self, context):
         target = context['targets'][0]

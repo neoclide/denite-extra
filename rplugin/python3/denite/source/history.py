@@ -79,7 +79,7 @@ class Kind(BaseKind):
         if target['source__type'] == 'search':
             self.vim.call('denite#extra#search', command)
         else:
-            self.vim.call('denite#util#execute_command', command)
+            self.vim.call('denite#util#execute_command', command, False)
 
 
     def action_delete(self, context):
