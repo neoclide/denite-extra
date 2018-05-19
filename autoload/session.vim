@@ -1,5 +1,6 @@
 let s:save_cpo = &cpo
 set cpo&vim
+let s:is_win = has('win32') || has('win64')
 
 function! session#save(filename, ...)
   if !isdirectory(g:session_directory)
