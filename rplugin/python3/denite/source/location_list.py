@@ -51,7 +51,7 @@ class Source(Base):
             word = context['__filename'] + ' |' + str(line) + ' col ' + str(col) + ' ' + type_str + '| ' + val['text']
 
         return {
-            'word': word,
+            'word': word.replace('\n', ' '),
             'action__path': context['__bufname'],
             'action__line': line,
             'action__col': col,
