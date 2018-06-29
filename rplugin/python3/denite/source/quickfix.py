@@ -50,7 +50,7 @@ class Source(Base):
         word = '{fname} |{location}| {text}'.format(
             fname=relpath(fname, root),
             location='' if line == 0 and col == 0 else '%d col %d' % (line, col),
-            text=val['text'])
+            text=val['text'].replace('\n', ' '))
 
         return {
             'word': word,
