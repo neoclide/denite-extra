@@ -20,6 +20,7 @@ class Source(Base):
 
 
     def gather_candidates(self, context):
+        context['is_interactive'] = True
         args = dict(enumerate(context['args']))
         t = args.get(0, 'all')
         pattern = re.compile(r'>?\s*(\d+)\s+(.+)')
@@ -44,6 +45,7 @@ class Source(Base):
             pre = ':' if htype == 'cmd' else '/'
             candidates.append({
                 'word': '%s%s' % (pre, m.group(2)),
+                'action__is_pause': True,
                 'source__nr': int(m.group(1)),
                 'source__type': htype,
                 'source__word': m.group(2),
