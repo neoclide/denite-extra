@@ -7,7 +7,7 @@
 import re
 from .base import Base
 from denite import util
-from ..kind.base import Base as BaseKind
+from ..kind.command import Kind as CommandKind
 from operator import itemgetter
 
 class Source(Base):
@@ -54,7 +54,7 @@ class Source(Base):
         candidates = sorted(candidates, key=itemgetter('source__nr'), reverse=True)
         return candidates
 
-class Kind(BaseKind):
+class Kind(CommandKind):
     def __init__(self, vim):
         super().__init__(vim)
         self.default_action = 'execute'
@@ -81,7 +81,10 @@ class Kind(BaseKind):
         if target['source__type'] == 'search':
             self.vim.call('denite#extra#search', command)
         else:
-            self.vim.call('denite#util#execute_command', command, False)
+            self._execute(context,
+                command,
+                target.get('action__is_pause', False))
+
 
 
     def action_delete(self, context):
