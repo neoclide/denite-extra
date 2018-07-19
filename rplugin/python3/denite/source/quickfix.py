@@ -105,4 +105,4 @@ class QuickfixKind(FileKind):
     def action_cc(self, context):
         target = context['targets'][0]
         index = target['action__index']
-        self.vim.command('cc {}'.format(index))
+        self.vim.command('cc! {}'.format(index))
