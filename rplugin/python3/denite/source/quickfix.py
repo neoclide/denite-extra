@@ -28,6 +28,10 @@ class Source(Base):
                 r'containedin=deniteSource_QuickfixHeader')
         self.vim.command(r'syntax match deniteSource_QuickfixPosition /\v\|\zs.{-}\ze\|/ contained '
                 r'containedin=deniteSource_QuickfixHeader')
+        self.vim.command(r'syntax match deniteSource_QuickfixError /Error/ contained '
+                r'containedin=deniteSource_QuickfixPosition')
+        self.vim.command(r'syntax match deniteSource_QuickfixWarning /Warning/ contained '
+                r'containedin=deniteSource_QuickfixPosition')
         word = self.vim.eval('get(g:,"grep_word", "")')
         if word:
             pattern = re.escape(word)
@@ -37,6 +41,8 @@ class Source(Base):
         self.vim.command('highlight default link deniteSource_QuickfixWord Search')
         self.vim.command('highlight default link deniteSource_QuickfixName Directory')
         self.vim.command('highlight default link deniteSource_QuickfixPosition LineNr')
+        self.vim.command('highlight default link deniteSource_QuickfixError Error')
+        self.vim.command('highlight default link deniteSource_QuickfixWarning WarningMsg')
 
     def on_init(self, context):
         context['__root'] = self.vim.call('getcwd')
@@ -46,10 +52,14 @@ class Source(Base):
         bufnr = val['bufnr']
         line = val['lnum'] if bufnr != 0 else 0
         col = val['col'] if bufnr != 0 else 0
+        location = '' if line == 0 and col == 0 else '%d col %d' % (line, col)
+        if val['type']:
+            location = location + ' ' + get_type(val['type'])
+
         fname = "" if bufnr == 0 else self.vim.eval('bufname(' + str(bufnr) + ')')
         word = '{fname} |{location}| {text}'.format(
             fname=relpath(fname, root),
-            location='' if line == 0 and col == 0 else '%d col %d' % (line, col),
+            location=location,
             text=val['text'].replace('\n', ' '))
 
         return {
@@ -72,6 +82,12 @@ class Source(Base):
         return res
 
 
+def get_type(t):
+    if t == 'E':
+        return 'Error'
+    if t == 'W':
+        return 'Warning'
+    return t
 
 
 class QuickfixKind(FileKind):
@@ -81,7 +97,7 @@ class QuickfixKind(FileKind):
 
     def __init__(self, vim):
         super().__init__(vim)
-        self.default_action = 'cc'
+        self.default_action = 'open'
 
     def action_quickfix(self, context):
         """ Use the default file 'kind', but override quickfix, so that it uses
@@ -102,7 +118,7 @@ class QuickfixKind(FileKind):
         context['auto_resize'] = True
         context['mode'] = 'normal'
 
-    def action_cc(self, context):
-        target = context['targets'][0]
-        index = target['action__index']
-        self.vim.command('cc! {}'.format(index))
+    #def action_cc(self, context):
+    #    target = context['targets'][0]
+    #    index = target['action__index']
+    #    self.vim.command('cc! {}'.format(index))
