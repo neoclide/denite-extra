@@ -58,7 +58,7 @@ function! s:osascript(...) abort
 endfunction
 
 function! denite#extra#cc(index)
-  call timer_start(30, { -> execute('cc! '.a:index)})
+  call timer_start(60, { -> execute('cc! '.a:index)})
 endfunction
 
 function! s:escape(filepath)
