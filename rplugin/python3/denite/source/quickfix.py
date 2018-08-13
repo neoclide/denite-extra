@@ -97,7 +97,7 @@ class QuickfixKind(FileKind):
 
     def __init__(self, vim):
         super().__init__(vim)
-        self.default_action = 'open'
+        self.default_action = 'cc'
 
     def action_quickfix(self, context):
         """ Use the default file 'kind', but override quickfix, so that it uses
@@ -118,7 +118,7 @@ class QuickfixKind(FileKind):
         context['auto_resize'] = True
         context['mode'] = 'normal'
 
-    #def action_cc(self, context):
-    #    target = context['targets'][0]
-    #    index = target['action__index']
-    #    self.vim.command('cc! {}'.format(index))
+    def action_cc(self, context):
+        target = context['targets'][0]
+        index = target['action__index']
+        self.vim.call('denite#extra#cc', index)

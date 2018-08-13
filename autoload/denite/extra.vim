@@ -57,6 +57,10 @@ function! s:osascript(...) abort
   endif
 endfunction
 
+function! denite#extra#cc(index)
+  call timer_start(30, { -> execute('cc! '.a:index)})
+endfunction
+
 function! s:escape(filepath)
   return "'".substitute(a:filepath, "'", "\\'", 'g')."'"
 endfunction
