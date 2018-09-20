@@ -50,8 +50,8 @@ class Source(Base):
     def convert(self, val, index, context):
         root = context['__root']
         bufnr = val['bufnr']
-        line = val['lnum'] if bufnr != 0 else 0
-        col = val['col'] if bufnr != 0 else 0
+        line = int(val['lnum']) if bufnr != 0 else 0
+        col = int(val['col']) if bufnr != 0 else 0
         location = '' if line == 0 and col == 0 else '%d col %d' % (line, col)
         if val['type']:
             location = location + ' ' + get_type(val['type'])
