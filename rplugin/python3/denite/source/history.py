@@ -81,6 +81,9 @@ class Kind(CommandKind):
         if target['source__type'] == 'search':
             self.vim.call('denite#extra#search', command)
         else:
+            if target['source__type'] == 'cmd':
+                self.vim.call('histadd', target['source__type'], command)
+
             self._execute(context,
                 command,
                 target.get('action__is_pause', False))
